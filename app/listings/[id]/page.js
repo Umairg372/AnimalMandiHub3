@@ -3,6 +3,8 @@
 import { useState, useEffect, use } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import {
   MapPin,
   Heart,
@@ -17,14 +19,20 @@ import {
   Flag,
   PawPrint,
   ChevronRight,
+  Trash2,
+  Loader2,
+  AlertCircle,
 } from "lucide-react";
 
 export default function AnimalDetailPage({ params }) {
   const { id } = use(params);
+  const { data: session } = useSession();
+  const router = useRouter();
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isFavorited, setIsFavorited] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     async function fetchListing() {
@@ -263,6 +271,39 @@ export default function AnimalDetailPage({ params }) {
                 <Flag className="w-4 h-4" />
                 Report Listing
               </button>
+
+              {session?.user?.id === listing.userId && (
+                <>
+                  <div className="border-t border-gray-100 my-6" />
+                  {deleting ? (
+                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Deleting...
+                    </div>
+                  ) : (
+                    <button
+                      onClick={async () => {
+                        if (!window.confirm("Delete this listing permanently?")) return;
+                        setDeleting(true);
+                        try {
+                          const res = await fetch(`/api/listings/${id}`, {
+                            method: "DELETE",
+                          });
+                          if (!res.ok) throw new Error();
+                          router.push("/my-listings");
+                        } catch {
+                          alert("Failed to delete listing");
+                          setDeleting(false);
+                        }
+                      }}
+                      className="w-full px-4 py-2.5 text-sm font-medium text-red-500 hover:bg-red-50 rounded-xl transition-colors flex items-center justify-center gap-2"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                      Delete Listing
+                    </button>
+                  )}
+                </>
+              )}
 
               {/* Seller Info */}
               <div className="mt-6 pt-6 border-t border-gray-100">

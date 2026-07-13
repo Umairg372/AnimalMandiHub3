@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { auth } from "@/lib/auth";
 
 export async function GET(request, { params }) {
   try {
@@ -48,6 +49,23 @@ export async function PUT(request, { params }) {
 export async function DELETE(request, { params }) {
   try {
     const { id } = await params;
+    const session = await auth();
+
+    const listing = await prisma.listing.findUnique({ where: { id } });
+    if (!listing) {
+      return NextResponse.json(
+        { error: "Listing not found" },
+        { status: 404 }
+      );
+    }
+
+    if (listing.userId && listing.userId !== session?.user?.id) {
+      return NextResponse.json(
+        { error: "Not authorized" },
+        { status: 403 }
+      );
+    }
+
     await prisma.listing.delete({ where: { id } });
     return NextResponse.json({ message: "Listing deleted" });
   } catch (error) {

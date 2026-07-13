@@ -12,6 +12,9 @@ import {
   ArrowRight,
   Upload,
   X,
+  Loader2,
+  AlertCircle,
+  LayoutList,
 } from "lucide-react";
 
 const steps = ["Category", "Details", "Photos", "Location", "Preview"];
@@ -59,6 +62,8 @@ const initialFormData = {
 export default function PostAdPage() {
   const [currentStep, setCurrentStep] = useState(0);
   const [isPublished, setIsPublished] = useState(false);
+  const [publishing, setPublishing] = useState(false);
+  const [publishError, setPublishError] = useState("");
   const [formData, setFormData] = useState(initialFormData);
   const fileInputRefs = useRef([]);
 
@@ -109,14 +114,55 @@ export default function PostAdPage() {
     }
   };
 
-  const handlePublish = () => {
-    setIsPublished(true);
+  const handlePublish = async () => {
+    setPublishing(true);
+    setPublishError("");
+
+    try {
+      const body = {
+        name: formData.name,
+        breed: formData.breed,
+        category: formData.animalType,
+        subtype: formData.subtype,
+        age: formData.age,
+        weight: formData.weight,
+        gender: formData.gender,
+        price: formData.price,
+        description: formData.description,
+        milkYield: formData.milkYield,
+        image: formData.photos[0]?.url || "",
+        images: formData.photos.filter(Boolean).map((p) => p.url),
+        location: formData.city ? `${formData.city}, ${formData.state}` : formData.state,
+        city: formData.city,
+        province: formData.state,
+        sellerName: formData.sellerName,
+        phone: formData.phone,
+      };
+
+      const res = await fetch("/api/listings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to publish ad");
+      }
+
+      setIsPublished(true);
+    } catch (err) {
+      setPublishError(err.message);
+    } finally {
+      setPublishing(false);
+    }
   };
 
   const handleReset = () => {
     setFormData(initialFormData);
     setCurrentStep(0);
     setIsPublished(false);
+    setPublishError("");
   };
 
   if (isPublished) {
@@ -152,7 +198,11 @@ export default function PostAdPage() {
                 <PawPrint className="w-4 h-4" />
                 Post Another Ad
               </button>
-              <Link href="/listings" className="btn btn-outline">
+              <Link href="/my-listings" className="btn btn-outline">
+                <LayoutList className="w-4 h-4" />
+                My Listings
+              </Link>
+              <Link href="/listings" className="btn btn-ghost">
                 Browse Listings
               </Link>
             </div>
@@ -602,6 +652,13 @@ export default function PostAdPage() {
                   </p>
                 </div>
               </div>
+
+              {publishError && (
+                <div className="mt-4 bg-red-50 border border-red-200 rounded-xl p-4 flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 text-red-600 mt-0.5 flex-shrink-0" />
+                  <p className="text-sm text-red-700">{publishError}</p>
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -626,9 +683,17 @@ export default function PostAdPage() {
               <ArrowRight className="w-4 h-4" />
             </button>
           ) : (
-            <button onClick={handlePublish} className="btn btn-accent btn-lg">
-              <PawPrint className="w-5 h-5" />
-              Publish Ad — Free!
+            <button
+              onClick={handlePublish}
+              disabled={publishing}
+              className="btn btn-accent btn-lg disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {publishing ? (
+                <Loader2 className="w-5 h-5 animate-spin" />
+              ) : (
+                <PawPrint className="w-5 h-5" />
+              )}
+              {publishing ? "Publishing..." : "Publish Ad — Free!"}
             </button>
           )}
         </div>

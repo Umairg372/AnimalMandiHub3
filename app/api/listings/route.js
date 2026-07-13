@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { auth } from "@/lib/auth";
 
 export async function GET(request) {
   try {
@@ -11,10 +12,24 @@ export async function GET(request) {
     const maxPrice = searchParams.get("maxPrice");
     const sort = searchParams.get("sort") || "newest";
     const featured = searchParams.get("featured");
+    const mine = searchParams.get("mine");
     const page = parseInt(searchParams.get("page") || "1");
     const limit = parseInt(searchParams.get("limit") || "20");
 
-    const where = { status: "active" };
+    const where = {};
+
+    if (mine === "true") {
+      const session = await auth();
+      if (!session?.user?.id) {
+        return NextResponse.json(
+          { error: "Not authenticated" },
+          { status: 401 }
+        );
+      }
+      where.userId = session.user.id;
+    } else {
+      where.status = "active";
+    }
 
     if (category && category !== "All") {
       where.category = category;
@@ -88,6 +103,7 @@ export async function GET(request) {
 
 export async function POST(request) {
   try {
+    const session = await auth();
     const body = await request.json();
     const {
       name,
@@ -135,6 +151,7 @@ export async function POST(request) {
         province,
         sellerName,
         phone,
+        userId: session?.user?.id || null,
       },
     });
 

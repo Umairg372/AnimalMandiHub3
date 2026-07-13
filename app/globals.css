@@ -509,7 +509,7 @@ html {
   font-family: var(--font-body);
   font-size: 1rem;
   color: #1a1a1a;
-  padding: 1rem 1.25rem;
+  padding: 1rem 1.25rem 1rem 3.25rem;
   min-width: 0;
 }
 
@@ -1038,4 +1038,289 @@ html {
     0 8px 16px rgba(0, 0, 0, 0.03),
     0 16px 32px rgba(0, 0, 0, 0.03),
     0 32px 64px rgba(0, 0, 0, 0.03);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Emil Kowalski Design Engineering — CSS Foundations
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* Custom easing curves — stronger than browser defaults */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  /* Duration tokens */
+  --duration-press: 120ms;
+  --duration-hover: 180ms;
+  --duration-dropdown: 200ms;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Premium Nav Button System
+   ═══════════════════════════════════════════════════════════ */
+
+/* Base nav-link: subtle pill button */
+.nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #6b7280;
+  transition:
+    color var(--duration-hover) var(--ease-out),
+    background-color var(--duration-hover) var(--ease-out),
+    transform var(--duration-press) var(--ease-out);
+  white-space: nowrap;
+}
+
+.nav-link:active {
+  transform: scale(0.96);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-link:hover {
+    background-color: rgba(27, 94, 32, 0.06);
+    color: var(--color-primary);
+  }
+}
+
+.nav-link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(27, 94, 32, 0.25);
+}
+
+/* Active nav-link: filled pill */
+.nav-link-active {
+  background-color: var(--color-primary);
+  color: white;
+  box-shadow: 0 2px 8px rgba(27, 94, 32, 0.15);
+  transition:
+    background-color var(--duration-hover) var(--ease-out),
+    color var(--duration-hover) var(--ease-out),
+    transform var(--duration-press) var(--ease-out),
+    box-shadow var(--duration-hover) var(--ease-out);
+}
+
+.nav-link-active:active {
+  transform: scale(0.96);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-link-active:hover {
+    background-color: var(--color-primary-light);
+    color: white;
+    box-shadow: 0 4px 12px rgba(27, 94, 32, 0.2);
+  }
+}
+
+.nav-link-active:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(27, 94, 32, 0.4), 0 2px 8px rgba(27, 94, 32, 0.15);
+}
+
+/* CTA nav button - accent pill */
+.nav-link-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
+  color: var(--color-primary-dark);
+  box-shadow: 0 2px 8px rgba(249, 168, 37, 0.2);
+  transition:
+    transform var(--duration-press) var(--ease-out),
+    box-shadow var(--duration-hover) var(--ease-out);
+  white-space: nowrap;
+}
+
+.nav-link-cta:active {
+  transform: scale(0.95);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-link-cta:hover {
+    box-shadow: 0 4px 16px rgba(249, 168, 37, 0.3);
+    transform: translateY(-1px);
+  }
+}
+
+.nav-link-cta:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(249, 168, 37, 0.4);
+}
+
+/* ── Nav Chevron ────────────────────────────────────────── */
+
+.nav-chevron {
+  transition: transform 200ms var(--ease-out);
+}
+
+.nav-chevron[data-open="true"] {
+  transform: rotate(180deg);
+}
+
+/* ── Dropdown Animations ────────────────────────────────── */
+
+.nav-dropdown {
+  animation: nav-dropdown-enter 200ms var(--ease-out) both;
+  transform-origin: top center;
+}
+
+@keyframes nav-dropdown-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-dropdown {
+    animation: none;
+  }
+}
+
+/* ── Dropdown Item ──────────────────────────────────────── */
+
+.nav-dropdown-item {
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    padding-left 150ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-dropdown-item:hover {
+    background-color: rgba(27, 94, 32, 0.04);
+    color: var(--color-primary);
+    padding-left: 1.25rem;
+  }
+}
+
+.nav-dropdown-item:active {
+  background-color: rgba(27, 94, 32, 0.08);
+}
+
+.nav-dropdown-item:focus-visible {
+  outline: none;
+  background-color: rgba(27, 94, 32, 0.06);
+}
+
+/* ── Stagger Animation for Mobile Menu Items ────────────── */
+
+@keyframes nav-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nav-mobile-item {
+  animation: nav-slide-in 250ms var(--ease-out) both;
+}
+
+.nav-mobile-item:nth-child(1) { animation-delay: 0ms; }
+.nav-mobile-item:nth-child(2) { animation-delay: 30ms; }
+.nav-mobile-item:nth-child(3) { animation-delay: 60ms; }
+.nav-mobile-item:nth-child(4) { animation-delay: 90ms; }
+.nav-mobile-item:nth-child(5) { animation-delay: 120ms; }
+.nav-mobile-item:nth-child(6) { animation-delay: 150ms; }
+.nav-mobile-item:nth-child(7) { animation-delay: 180ms; }
+.nav-mobile-item:nth-child(8) { animation-delay: 210ms; }
+
+/* ── Reduced Motion ─────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .nav-link,
+  .nav-link-active,
+  .nav-link-cta,
+  .nav-dropdown,
+  .nav-dropdown-item,
+  .nav-chevron,
+  .nav-mobile-item {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+  }
+
+  .nav-link:active,
+  .nav-link-active:active,
+  .nav-link-cta:active {
+    transform: none;
+  }
+
+  .nav-link:hover,
+  .nav-link-active:hover,
+  .nav-link-cta:hover {
+    transform: none;
+  }
+}
+
+/* ── Stagger Animation for Mobile Menu Items ────────────── */
+
+@keyframes nav-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nav-mobile-item {
+  animation: nav-slide-in 250ms var(--ease-out) both;
+}
+
+.nav-mobile-item:nth-child(1) { animation-delay: 0ms; }
+.nav-mobile-item:nth-child(2) { animation-delay: 30ms; }
+.nav-mobile-item:nth-child(3) { animation-delay: 60ms; }
+.nav-mobile-item:nth-child(4) { animation-delay: 90ms; }
+.nav-mobile-item:nth-child(5) { animation-delay: 120ms; }
+.nav-mobile-item:nth-child(6) { animation-delay: 150ms; }
+.nav-mobile-item:nth-child(7) { animation-delay: 180ms; }
+.nav-mobile-item:nth-child(8) { animation-delay: 210ms; }
+
+/* ── Dropdown Item Hover ────────────────────────────────── */
+
+.nav-dropdown-item {
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    transform 120ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-dropdown-item:hover {
+    transform: translateX(2px);
+  }
+}
+
+.nav-dropdown-item:active {
+  transform: scale(0.98);
+}
+
+/* ── Chevron Rotation ───────────────────────────────────── */
+
+.nav-chevron {
+  transition: transform 200ms var(--ease-out);
+}
+
+.nav-chevron[data-open="true"] {
+  transform: rotate(180deg);
 }
