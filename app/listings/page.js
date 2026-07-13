@@ -119,7 +119,7 @@ export default function ListingsPage() {
             Find your perfect companion from thousands of verified listings
           </p>
           {/* Search bar */}
-          <form onSubmit={handleSearch} className="mt-6 flex gap-3">
+          <form onSubmit={handleSearch} className="mt-6 flex flex-col sm:flex-row gap-3">
             <div className="flex-1 search-bar-compact">
               <Search className="search-icon w-5 h-5" />
               <input
@@ -129,18 +129,20 @@ export default function ListingsPage() {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-            <button type="submit" className="btn btn-accent">
-              Search
-            </button>
-            <button
-              type="button"
-              onClick={() => setShowFilters(!showFilters)}
-              className="btn btn-ghost btn-sm"
-              style={{ padding: "0.75rem 1.25rem" }}
-            >
-              <SlidersHorizontal className="w-5 h-5" />
-              Filters
-            </button>
+            <div className="flex gap-2 w-full sm:w-auto">
+              <button type="submit" className="btn btn-accent flex-1 sm:flex-none">
+                Search
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowFilters(!showFilters)}
+                className="btn btn-ghost btn-sm flex-1 sm:flex-none"
+                style={{ padding: "0.75rem 1.25rem" }}
+              >
+                <SlidersHorizontal className="w-5 h-5" />
+                <span className="hidden sm:inline">Filters</span>
+              </button>
+            </div>
           </form>
         </div>
       </div>

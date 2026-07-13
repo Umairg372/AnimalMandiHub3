@@ -57,7 +57,7 @@ const categories = [
   {
     name: "Buffalo",
     count: "1,500+",
-    image: "https://images.unsplash.com/photo-1582547131889-07a5c16d4b23?w=800&h=640&fit=crop&q=90",
+    image: "https://images.unsplash.com/photo-1614578829303-c4b2d880b7b6?w=800&h=640&fit=crop&q=90",
     href: "/listings?category=buffalo",
     accent: "group-hover:shadow-emerald-500/20",
   },
@@ -82,7 +82,7 @@ export default function CategoryCards() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
           {categories.map((cat, i) => (
             <Link
               key={cat.name}

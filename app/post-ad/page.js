@@ -248,7 +248,7 @@ export default function PostAdPage() {
                   )}
                 </div>
                 <span
-                  className={`text-xs mt-2 font-medium hidden sm:block ${
+                  className={`text-xs mt-1.5 font-medium ${
                     i <= currentStep ? "text-primary" : "text-gray-400"
                   }`}
                 >
@@ -257,7 +257,7 @@ export default function PostAdPage() {
               </div>
               {i < steps.length - 1 && (
                 <div
-                  className={`w-12 sm:w-20 h-0.5 mx-2 ${
+                  className={`w-8 sm:w-16 h-0.5 mx-1.5 sm:mx-2 ${
                     i < currentStep ? "bg-primary" : "bg-gray-200"
                   }`}
                 />

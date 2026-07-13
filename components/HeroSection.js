@@ -120,7 +120,7 @@ export default function HeroSection() {
 
             {/* Premium Search box */}
             <div className="opacity-0 reveal-up delay-3">
-              <div className="search-bar p-1.5 flex flex-col sm:flex-row gap-0 max-w-xl">
+              <div className="search-bar p-1.5 flex flex-col sm:flex-row gap-2 max-w-xl">
                 <div className="flex-1 relative flex items-center">
                   <Search className="search-icon w-5 h-5" />
                   <input
@@ -131,17 +131,17 @@ export default function HeroSection() {
                     onChange={(e) => setSearchText(e.target.value)}
                   />
                 </div>
-                <div className="relative">
+                <div className="relative w-full sm:w-auto">
                   <button
                     onClick={() => setShowDropdown(!showDropdown)}
-                    className="search-dropdown"
+                    className="search-dropdown w-full sm:w-auto justify-center"
                   >
                     <MapPin className="w-4 h-4" />
                     <span>{selectedCategory}</span>
                     <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${showDropdown ? "rotate-180" : ""}`} />
                   </button>
                   {showDropdown && (
-                    <div className="search-dropdown-menu">
+                    <div className="search-dropdown-menu w-full">
                       {categories.map((cat) => (
                         <button
                           key={cat}
@@ -165,7 +165,7 @@ export default function HeroSection() {
                     const qs = params.toString();
                     return qs ? `?${qs}` : "";
                   })()}`}
-                  className="search-btn flex items-center gap-2"
+                  className="search-btn flex items-center justify-center gap-2 w-full sm:w-auto"
                 >
                   <Search className="w-4 h-4" />
                   Search
@@ -191,12 +191,12 @@ export default function HeroSection() {
           </div>
 
           {/* Right content - Real animal image cards */}
-          <div className="hidden lg:grid grid-cols-2 gap-4 opacity-0 reveal-scale delay-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 opacity-0 reveal-scale delay-2">
             {categoryCards.map((card, i) => (
               <div
                 key={card.title}
                 className={`relative rounded-3xl overflow-hidden cursor-pointer group ${
-                  i === 0 ? "h-52 row-span-1" : "h-48"
+                  i === 0 ? "h-48 sm:h-52" : "h-44 sm:h-48"
                 }`}
                 style={{ animationDelay: `${i * 0.15}s` }}
               >

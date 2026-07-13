@@ -107,15 +107,15 @@ export default function AnimalDetailPage({ params }) {
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Image */}
+{/* Image */}
             <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
-              <div className="relative h-80 sm:h-96 bg-gray-100">
+              <div className="relative h-[300px] sm:h-80 lg:h-96 bg-gray-100">
                 <Image
                   src={listing.image}
                   alt={listing.name}
                   fill
                   className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 66vw"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 66vw, 66vw"
                   priority
                 />
                 {listing.featured && (
@@ -226,9 +226,9 @@ export default function AnimalDetailPage({ params }) {
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-6">
+          <div className="space-y-6 lg:sticky lg:top-24 lg:self-start">
             {/* Price Card */}
-            <div className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm sticky top-24">
+            <div className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
               <div className="mb-6">
                 <p className="text-sm text-gray-500 mb-1">Price</p>
                 <p className="text-4xl font-black text-primary font-[family-name:var(--font-display)]">

@@ -208,7 +208,7 @@ export default function ServicesPage() {
                   {/* Visual */}
                   <div className="flex-1 w-full">
                     <div
-                      className={`bg-gradient-to-br ${service.color} rounded-3xl p-10 flex items-center justify-center min-h-[300px]`}
+                      className={`bg-gradient-to-br ${service.color} rounded-3xl p-6 sm:p-10 flex items-center justify-center min-h-[200px] sm:min-h-[300px]`}
                     >
                       <Icon className="w-32 h-32 text-white/30" />
                     </div>

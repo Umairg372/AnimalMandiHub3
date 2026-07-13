@@ -63,7 +63,7 @@ const featuredAnimals = [
     category: "Buffalo",
     verified: true,
     featured: false,
-    image: "https://images.unsplash.com/photo-1582547131889-07a5c16d4b23?w=600&h=400&fit=crop",
+    image: "https://images.unsplash.com/photo-1614578829303-c4b2d880b7b6?w=600&h=400&fit=crop",
   },
   {
     id: 6,
