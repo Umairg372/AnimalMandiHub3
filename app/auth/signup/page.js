@@ -103,8 +103,8 @@ export default function SignUpPage() {
               <label className="block text-sm font-bold text-gray-700 mb-2">
                 Full Name
               </label>
-              <div className="relative">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <div className="auth-input-group">
+                <User className="auth-input-icon" aria-hidden="true" />
                 <input
                   type="text"
                   required
@@ -112,8 +112,8 @@ export default function SignUpPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
                   }
-                  placeholder="Muhammad Ali"
-                  className="w-full pl-11 pr-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-gray-50/50 transition-all"
+                  placeholder="Muhammad Umair"
+                  className="auth-input"
                 />
               </div>
             </div>
@@ -122,8 +122,8 @@ export default function SignUpPage() {
               <label className="block text-sm font-bold text-gray-700 mb-2">
                 Email
               </label>
-              <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <div className="auth-input-group">
+                <Mail className="auth-input-icon" aria-hidden="true" />
                 <input
                   type="email"
                   required
@@ -132,7 +132,7 @@ export default function SignUpPage() {
                     setFormData({ ...formData, email: e.target.value })
                   }
                   placeholder="you@example.com"
-                  className="w-full pl-11 pr-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-gray-50/50 transition-all"
+                  className="auth-input"
                 />
               </div>
             </div>
@@ -141,8 +141,8 @@ export default function SignUpPage() {
               <label className="block text-sm font-bold text-gray-700 mb-2">
                 Phone (optional)
               </label>
-              <div className="relative">
-                <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <div className="auth-input-group">
+                <Phone className="auth-input-icon" aria-hidden="true" />
                 <input
                   type="tel"
                   value={formData.phone}
@@ -150,7 +150,7 @@ export default function SignUpPage() {
                     setFormData({ ...formData, phone: e.target.value })
                   }
                   placeholder="+92 3XX XXXXXXX"
-                  className="w-full pl-11 pr-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-gray-50/50 transition-all"
+                  className="auth-input"
                 />
               </div>
             </div>
@@ -159,8 +159,8 @@ export default function SignUpPage() {
               <label className="block text-sm font-bold text-gray-700 mb-2">
                 Password
               </label>
-              <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <div className="auth-input-group">
+                <Lock className="auth-input-icon" aria-hidden="true" />
                 <input
                   type={showPassword ? "text" : "password"}
                   required
@@ -169,12 +169,13 @@ export default function SignUpPage() {
                     setFormData({ ...formData, password: e.target.value })
                   }
                   placeholder="Min 6 characters"
-                  className="w-full pl-11 pr-12 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-gray-50/50 transition-all"
+                  className="auth-input"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  className="auth-input-toggle"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
                     <EyeOff className="w-4 h-4" />
@@ -189,8 +190,8 @@ export default function SignUpPage() {
               <label className="block text-sm font-bold text-gray-700 mb-2">
                 Confirm Password
               </label>
-              <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <div className="auth-input-group">
+                <Lock className="auth-input-icon" aria-hidden="true" />
                 <input
                   type="password"
                   required
@@ -202,7 +203,7 @@ export default function SignUpPage() {
                     })
                   }
                   placeholder="Re-enter password"
-                  className="w-full pl-11 pr-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary bg-gray-50/50 transition-all"
+                  className="auth-input"
                 />
               </div>
             </div>

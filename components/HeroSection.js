@@ -23,26 +23,26 @@ const categoryCards = [
   {
     title: "Cows & Buffalo",
     count: "2,500+",
-    image: "https://images.unsplash.com/photo-1527153857715-3908f2bae5e8?w=400&h=300&fit=crop",
-    gradient: "from-emerald-600/80 to-emerald-900/90",
+    image: "https://images.unsplash.com/photo-1527153857715-3908f2bae5e8?w=800&h=640&fit=crop&q=90",
+    gradient: "from-emerald-600/50 to-emerald-900/60",
   },
   {
     title: "Goats & Sheep",
     count: "3,800+",
-    image: "https://images.unsplash.com/photo-1535338454770-8be927b5a00b?w=400&h=300&fit=crop",
-    gradient: "from-amber-500/80 to-amber-800/90",
+    image: "https://images.unsplash.com/photo-1535338454770-8be927b5a00b?w=800&h=640&fit=crop&q=90",
+    gradient: "from-amber-500/50 to-amber-800/60",
   },
   {
     title: "Dogs & Puppies",
     count: "4,200+",
-    image: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&h=300&fit=crop",
-    gradient: "from-blue-500/80 to-blue-800/90",
+    image: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&h=640&fit=crop&q=90",
+    gradient: "from-blue-500/50 to-blue-800/60",
   },
   {
     title: "Birds & Parrots",
     count: "1,900+",
-    image: "https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=400&h=300&fit=crop",
-    gradient: "from-purple-500/80 to-purple-800/90",
+    image: "https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=800&h=640&fit=crop&q=90",
+    gradient: "from-purple-500/50 to-purple-800/60",
   },
 ];
 
@@ -204,16 +204,18 @@ export default function HeroSection() {
                   src={card.image}
                   alt={card.title}
                   fill
+                  quality={90}
+                  priority
                   className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-                  sizes="300px"
+                  sizes="(max-width: 1024px) 0px, (max-width: 1280px) 320px, 380px"
                 />
-                <div className={`absolute inset-0 bg-gradient-to-t ${card.gradient} opacity-80 group-hover:opacity-70 transition-opacity duration-500`} />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-5">
+                <div className={`absolute inset-0 bg-gradient-to-t ${card.gradient} opacity-70 group-hover:opacity-60 transition-opacity duration-500`} />
+                <div className="category-image-card__overlay" />
+                <div className="absolute bottom-0 left-0 right-0 p-5 category-image-card__text">
                   <h3 className="font-bold text-white text-lg font-[family-name:var(--font-display)]">
                     {card.title}
                   </h3>
-                  <p className="text-sm text-white/75 mt-0.5">
+                  <p className="text-sm text-white/90 mt-0.5">
                     {card.count} available
                   </p>
                 </div>

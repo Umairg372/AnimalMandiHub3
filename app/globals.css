@@ -1324,3 +1324,105 @@ html {
 .nav-chevron[data-open="true"] {
   transform: rotate(180deg);
 }
+
+/* ============================================================
+   AUTH FORM INPUTS
+   ============================================================ */
+
+.auth-input-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  background: rgba(249, 250, 251, 0.5);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.auth-input-group:focus-within {
+  border-color: #1B5E20;
+  box-shadow: 0 0 0 2px rgba(27, 94, 32, 0.2);
+}
+
+.auth-input-icon {
+  flex-shrink: 0;
+  width: 1.125rem;
+  height: 1.125rem;
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+.auth-input-group:focus-within .auth-input-icon {
+  color: #6b7280;
+}
+
+.auth-input {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  padding: 0.875rem 0;
+  border: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.25;
+  color: #1a1a1a;
+  outline: none;
+}
+
+.auth-input::placeholder {
+  color: #9ca3af;
+}
+
+.auth-input-toggle {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  margin-right: -0.25rem;
+  color: #9ca3af;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.auth-input-toggle:hover {
+  color: #4b5563;
+}
+
+/* ============================================================
+   CATEGORY IMAGE CARDS (Hero + Browse sections)
+   ============================================================ */
+
+.category-image-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.88) 0%,
+    rgba(0, 0, 0, 0.55) 28%,
+    rgba(0, 0, 0, 0.15) 55%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.category-image-card__text {
+  position: relative;
+  z-index: 2;
+}
+
+.category-image-card__text h3 {
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.9),
+    0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.category-image-card__text p {
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.85),
+    0 2px 6px rgba(0, 0, 0, 0.5);
+}
