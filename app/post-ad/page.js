@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useRef } from "react";
+import Link from "next/link";
+import Image from "next/image";
 import {
   PawPrint,
   Camera,
@@ -150,9 +152,9 @@ export default function PostAdPage() {
                 <PawPrint className="w-4 h-4" />
                 Post Another Ad
               </button>
-              <a href="/listings" className="btn btn-outline">
+              <Link href="/listings" className="btn btn-outline">
                 Browse Listings
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -409,10 +411,13 @@ export default function PostAdPage() {
                       />
                       {photo ? (
                         <div className="aspect-square rounded-xl overflow-hidden border-2 border-primary/30 group">
-                          <img
+                          <Image
                             src={photo.url}
                             alt={photo.name}
+                            width={200}
+                            height={200}
                             className="w-full h-full object-cover"
+                            unoptimized
                           />
                           <button
                             onClick={() => removePhoto(i)}
@@ -532,10 +537,13 @@ export default function PostAdPage() {
                 <div className="flex flex-col sm:flex-row gap-6">
                   <div className="w-full sm:w-48 h-48 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl flex flex-col items-center justify-center text-primary/40 overflow-hidden">
                     {formData.photos[0] ? (
-                      <img
+                      <Image
                         src={formData.photos[0].url}
                         alt="Preview"
+                        width={192}
+                        height={192}
                         className="w-full h-full object-cover"
+                        unoptimized
                       />
                     ) : (
                       <>

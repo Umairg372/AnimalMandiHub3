@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Search, MapPin, ChevronDown } from "lucide-react";
+import { Search, MapPin, ChevronDown, Shield, Truck, Star } from "lucide-react";
 
 const categories = [
   "All Animals",
@@ -24,161 +24,204 @@ const categoryCards = [
     title: "Cows & Buffalo",
     count: "2,500+",
     image: "https://images.unsplash.com/photo-1527153857715-3908f2bae5e8?w=400&h=300&fit=crop",
-    border: "border-green-200",
+    gradient: "from-emerald-600/80 to-emerald-900/90",
   },
   {
     title: "Goats & Sheep",
     count: "3,800+",
     image: "https://images.unsplash.com/photo-1535338454770-8be927b5a00b?w=400&h=300&fit=crop",
-    border: "border-amber-200",
+    gradient: "from-amber-500/80 to-amber-800/90",
   },
   {
     title: "Dogs & Puppies",
     count: "4,200+",
     image: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&h=300&fit=crop",
-    border: "border-blue-200",
+    gradient: "from-blue-500/80 to-blue-800/90",
   },
   {
     title: "Birds & Parrots",
     count: "1,900+",
     image: "https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=400&h=300&fit=crop",
-    border: "border-purple-200",
+    gradient: "from-purple-500/80 to-purple-800/90",
   },
+];
+
+const trustBadges = [
+  { icon: Shield, text: "100% Payment Protection" },
+  { icon: Truck, text: "Home Delivery Available" },
+  { icon: Star, text: "50,000+ Verified Animals" },
 ];
 
 export default function HeroSection() {
   const [selectedCategory, setSelectedCategory] = useState("All Animals");
   const [showDropdown, setShowDropdown] = useState(false);
+  const [searchText, setSearchText] = useState("");
 
   return (
-    <section className="relative min-h-[85vh] flex items-center hero-pattern grain-overlay overflow-hidden">
-      {/* Floating decorative elements */}
-      <div className="absolute top-20 right-10 w-72 h-72 bg-accent/10 rounded-full blur-3xl animate-float" />
-      <div
-        className="absolute bottom-20 left-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
-        style={{ animationDelay: "1.5s" }}
-      />
+    <section className="relative min-h-[92vh] flex items-center overflow-hidden">
+      {/* Premium layered background */}
+      <div className="absolute inset-0 mesh-gradient-1" />
+      <div className="absolute inset-0 dots-pattern opacity-40" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      {/* Floating orbs */}
+      <div className="absolute top-32 right-[10%] w-[500px] h-[500px] bg-gradient-to-br from-primary/8 to-accent/5 rounded-full blur-[100px] animate-float" />
+      <div className="absolute bottom-20 left-[5%] w-[400px] h-[400px] bg-gradient-to-br from-accent/6 to-primary/4 rounded-full blur-[80px]" style={{ animationDelay: "2s", animation: "float 6s ease-in-out infinite" }} />
+      <div className="absolute top-[60%] right-[30%] w-[300px] h-[300px] bg-primary/3 rounded-full blur-[60px]" />
+
+      {/* Decorative geometric shapes */}
+      <div className="absolute top-24 left-[8%] w-20 h-20 border-2 border-primary/10 rounded-2xl rotate-12 animate-float" style={{ animationDelay: "1s" }} />
+      <div className="absolute bottom-32 right-[15%] w-14 h-14 border-2 border-accent/15 rounded-full animate-float" style={{ animationDelay: "3s" }} />
+      <div className="absolute top-[45%] left-[3%] w-3 h-3 bg-primary/20 rounded-full animate-float" style={{ animationDelay: "0.5s" }} />
+      <div className="absolute top-[35%] right-[5%] w-2 h-2 bg-accent/30 rounded-full animate-float" style={{ animationDelay: "2.5s" }} />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10 w-full">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left content */}
           <div className="space-y-8">
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium">
-              <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-              Pakistan&apos;s #1 Animal Marketplace
+            {/* Premium badge */}
+            <div className="inline-flex items-center gap-2.5 glass-card px-5 py-2.5 rounded-full opacity-0 reveal-up">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary" />
+              </span>
+              <span className="text-sm font-bold text-primary tracking-wide">
+                Pakistan&apos;s #1 Animal Marketplace
+              </span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight font-[family-name:var(--font-display)]">
-              Explore a world where{" "}
-              <span className="text-primary">sellers</span> and{" "}
-              <span className="text-accent-dark">buyers</span> interact through{" "}
+            {/* Headline */}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-[4.25rem] font-black leading-[1.08] font-[family-name:var(--font-display)] text-gray-900 opacity-0 reveal-up delay-1">
+              Where{" "}
               <span className="relative inline-block">
-                technology
-                <svg
-                  className="absolute -bottom-2 left-0 w-full"
-                  viewBox="0 0 200 12"
-                  fill="none"
-                >
-                  <path
-                    d="M2 8c40-6 80-6 120-2s50 4 76 0"
-                    stroke="#F9A825"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                  />
+                <span className="shimmer-text">sellers</span>
+                <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
+                  <path d="M2 8c40-6 80-6 120-2s50 4 76 0" stroke="#F9A825" strokeWidth="3" strokeLinecap="round" />
                 </svg>
+              </span>{" "}
+              &{" "}
+              <span className="relative inline-block">
+                <span className="shimmer-text">buyers</span>
+                <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none">
+                  <path d="M2 8c40-6 80-6 120-2s50 4 76 0" stroke="#1B5E20" strokeWidth="3" strokeLinecap="round" />
+                </svg>
+              </span>{" "}
+              meet through{" "}
+              <span className="relative inline-block text-primary">
+                technology
               </span>
             </h1>
 
-            <p className="text-lg text-gray-600 leading-relaxed max-w-lg">
-              At AnimalMandiHub, we are glad to introduce the largest marketplace
-              for buying and selling pets, livestock, and birds. The only platform
-              where you can find everything, including all breeds of animals, under
-              one roof.
+            {/* Subheadline */}
+            <p className="text-lg text-gray-500 leading-relaxed max-w-lg opacity-0 reveal-up delay-2">
+              The largest marketplace for buying and selling pets, livestock, and
+              birds in Pakistan. All breeds under one roof — verified, safe, and
+              transparent.
             </p>
 
             {/* Premium Search box */}
-            <div className="search-bar p-1.5 flex flex-col sm:flex-row gap-0">
-              <div className="flex-1 relative flex items-center">
-                <Search className="search-icon w-5 h-5" />
-                <input
-                  type="text"
-                  placeholder="Search by breed, name, or location..."
-                  className="w-full"
-                />
-              </div>
-              <div className="relative">
-                <button
-                  onClick={() => setShowDropdown(!showDropdown)}
-                  className="search-dropdown"
+            <div className="opacity-0 reveal-up delay-3">
+              <div className="search-bar p-1.5 flex flex-col sm:flex-row gap-0 max-w-xl">
+                <div className="flex-1 relative flex items-center">
+                  <Search className="search-icon w-5 h-5" />
+                  <input
+                    type="text"
+                    placeholder="Search by breed, name, or location..."
+                    className="w-full"
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
+                  />
+                </div>
+                <div className="relative">
+                  <button
+                    onClick={() => setShowDropdown(!showDropdown)}
+                    className="search-dropdown"
+                  >
+                    <MapPin className="w-4 h-4" />
+                    <span>{selectedCategory}</span>
+                    <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${showDropdown ? "rotate-180" : ""}`} />
+                  </button>
+                  {showDropdown && (
+                    <div className="search-dropdown-menu">
+                      {categories.map((cat) => (
+                        <button
+                          key={cat}
+                          onClick={() => {
+                            setSelectedCategory(cat);
+                            setShowDropdown(false);
+                          }}
+                          className={selectedCategory === cat ? "selected" : ""}
+                        >
+                          {cat}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <Link
+                  href={`/listings${(() => {
+                    const params = new URLSearchParams();
+                    if (selectedCategory !== "All Animals") params.set("category", selectedCategory);
+                    if (searchText) params.set("search", searchText);
+                    const qs = params.toString();
+                    return qs ? `?${qs}` : "";
+                  })()}`}
+                  className="search-btn flex items-center gap-2"
                 >
-                  <MapPin className="w-4 h-4" />
-                  <span>{selectedCategory}</span>
-                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${showDropdown ? "rotate-180" : ""}`} />
-                </button>
-                {showDropdown && (
-                  <div className="search-dropdown-menu">
-                    {categories.map((cat) => (
-                      <button
-                        key={cat}
-                        onClick={() => {
-                          setSelectedCategory(cat);
-                          setShowDropdown(false);
-                        }}
-                        className={selectedCategory === cat ? "selected" : ""}
-                      >
-                        {cat}
-                      </button>
-                    ))}
-                  </div>
-                )}
+                  <Search className="w-4 h-4" />
+                  Search
+                </Link>
               </div>
-              <Link
-                href="/listings"
-                className="search-btn flex items-center gap-2"
-              >
-                <Search className="w-4 h-4" />
-                Search
-              </Link>
             </div>
 
             {/* Trust badges */}
-            <div className="flex flex-wrap gap-6 text-sm text-gray-500">
-              {[
-                "✓ 100% Free to List",
-                "✓ Verified Sellers",
-                "✓ Payment Guarantee",
-                "✓ Home Delivery",
-              ].map((badge) => (
-                <span key={badge} className="flex items-center gap-1">
-                  {badge}
-                </span>
-              ))}
+            <div className="flex flex-wrap gap-4 opacity-0 reveal-up delay-4">
+              {trustBadges.map((badge) => {
+                const Icon = badge.icon;
+                return (
+                  <span
+                    key={badge.text}
+                    className="flex items-center gap-2 text-sm text-gray-500 bg-white/60 backdrop-blur-sm px-4 py-2 rounded-full border border-gray-100"
+                  >
+                    <Icon className="w-4 h-4 text-primary" />
+                    {badge.text}
+                  </span>
+                );
+              })}
             </div>
           </div>
 
           {/* Right content - Real animal image cards */}
-          <div className="hidden lg:grid grid-cols-2 gap-4">
+          <div className="hidden lg:grid grid-cols-2 gap-4 opacity-0 reveal-scale delay-2">
             {categoryCards.map((card, i) => (
               <div
                 key={card.title}
-                className={`relative rounded-2xl overflow-hidden border-2 ${card.border} card-hover cursor-pointer h-44`}
-                style={{ animationDelay: `${i * 0.2}s` }}
+                className={`relative rounded-3xl overflow-hidden cursor-pointer group ${
+                  i === 0 ? "h-52 row-span-1" : "h-48"
+                }`}
+                style={{ animationDelay: `${i * 0.15}s` }}
               >
                 <Image
                   src={card.image}
                   alt={card.title}
                   fill
-                  className="object-cover"
+                  className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                   sizes="300px"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <h3 className="font-bold text-white font-[family-name:var(--font-display)]">
+                <div className={`absolute inset-0 bg-gradient-to-t ${card.gradient} opacity-80 group-hover:opacity-70 transition-opacity duration-500`} />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-5">
+                  <h3 className="font-bold text-white text-lg font-[family-name:var(--font-display)]">
                     {card.title}
                   </h3>
-                  <p className="text-sm text-white/80">
+                  <p className="text-sm text-white/75 mt-0.5">
                     {card.count} available
                   </p>
+                </div>
+                {/* Premium hover indicator */}
+                <div className="absolute top-4 right-4 w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                  <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
                 </div>
               </div>
             ))}

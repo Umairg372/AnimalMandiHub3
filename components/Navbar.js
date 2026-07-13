@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useSession, signOut } from "next-auth/react";
 import {
   Menu,
   X,
@@ -10,6 +11,10 @@ import {
   ChevronDown,
   Phone,
   MapPin,
+  LogIn,
+  UserPlus,
+  LogOut,
+  User,
 } from "lucide-react";
 
 const navLinks = [
@@ -19,11 +24,11 @@ const navLinks = [
     href: "/listings",
     children: [
       { name: "All Animals", href: "/listings" },
-      { name: "Pets", href: "/listings?category=pets" },
-      { name: "Livestock", href: "/listings?category=livestock" },
-      { name: "Birds", href: "/listings?category=birds" },
-      { name: "Dogs", href: "/listings?category=dogs" },
-      { name: "Cats", href: "/listings?category=cats" },
+      { name: "Dogs", href: "/listings?category=Dogs" },
+      { name: "Cats", href: "/listings?category=Cats" },
+      { name: "Cows", href: "/listings?category=Cows" },
+      { name: "Goats", href: "/listings?category=Goats" },
+      { name: "Birds", href: "/listings?category=Birds" },
     ],
   },
   { name: "Post Ad", href: "/post-ad" },
@@ -35,6 +40,7 @@ const navLinks = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const { data: session } = useSession();
 
   return (
     <>
@@ -139,6 +145,53 @@ export default function Navbar() {
               >
                 + Post Free Ad
               </Link>
+
+              {session ? (
+                <div className="relative group">
+                  <button className="flex items-center gap-2 px-3 py-2 rounded-xl hover:bg-surface transition-colors">
+                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                      <User className="w-4 h-4 text-primary" />
+                    </div>
+                    <span className="text-sm font-medium text-gray-700">
+                      {session.user?.name?.split(" ")[0]}
+                    </span>
+                  </button>
+                  <div className="absolute right-0 top-full w-48 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-50 mt-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+                    <div className="px-4 py-2 border-b border-gray-100">
+                      <p className="text-xs text-gray-400">Signed in as</p>
+                      <p className="text-sm font-medium text-gray-700 truncate">
+                        {session.user?.email}
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => signOut({ callbackUrl: "/" })}
+                      className="w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2 transition-all"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      Sign Out
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <Link
+                    href="/auth/signin"
+                    className="btn btn-ghost btn-sm"
+                    style={{ padding: "0.6rem 1rem", fontSize: "0.875rem" }}
+                  >
+                    <LogIn className="w-4 h-4" />
+                    Sign In
+                  </Link>
+                  <Link
+                    href="/auth/signup"
+                    className="btn btn-primary btn-sm"
+                    style={{ padding: "0.6rem 1rem", fontSize: "0.875rem" }}
+                  >
+                    <UserPlus className="w-4 h-4" />
+                    Sign Up
+                  </Link>
+                </>
+              )}
             </div>
 
             {/* Mobile menu button */}
@@ -171,6 +224,52 @@ export default function Navbar() {
                 </Link>
               ))}
               <div className="pt-4 border-t border-gray-100 mt-4 space-y-3">
+                {session ? (
+                  <>
+                    <div className="px-4 py-2 flex items-center gap-3">
+                      <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                        <User className="w-5 h-5 text-primary" />
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-800 text-sm">
+                          {session.user?.name}
+                        </p>
+                        <p className="text-xs text-gray-400">
+                          {session.user?.email}
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setIsOpen(false);
+                        signOut({ callbackUrl: "/" });
+                      }}
+                      className="btn btn-outline w-full text-red-600 border-red-200 hover:bg-red-50"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      Sign Out
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href="/auth/signin"
+                      onClick={() => setIsOpen(false)}
+                      className="btn btn-primary w-full"
+                    >
+                      <LogIn className="w-4 h-4" />
+                      Sign In
+                    </Link>
+                    <Link
+                      href="/auth/signup"
+                      onClick={() => setIsOpen(false)}
+                      className="btn btn-outline w-full"
+                    >
+                      <UserPlus className="w-4 h-4" />
+                      Sign Up Free
+                    </Link>
+                  </>
+                )}
                 <Link
                   href="/post-ad"
                   onClick={() => setIsOpen(false)}

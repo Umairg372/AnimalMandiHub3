@@ -1,14 +1,15 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import {
   PawPrint,
-  Phone,
-  Mail,
-  MapPin,
   Globe,
   MessageCircle,
   Camera,
   Play,
   ArrowRight,
+  CheckCircle,
 } from "lucide-react";
 
 const footerLinks = {
@@ -21,12 +22,12 @@ const footerLinks = {
     { name: "Contact Us", href: "/contact" },
   ],
   Categories: [
-    { name: "Dogs", href: "/listings?category=dogs" },
-    { name: "Cats", href: "/listings?category=cats" },
-    { name: "Cows", href: "/listings?category=cows" },
-    { name: "Goats", href: "/listings?category=goats" },
-    { name: "Birds", href: "/listings?category=birds" },
-    { name: "Fish & Aquarium", href: "/listings?category=fish" },
+    { name: "Dogs", href: "/listings?category=Dogs" },
+    { name: "Cats", href: "/listings?category=Cats" },
+    { name: "Cows", href: "/listings?category=Cows" },
+    { name: "Goats", href: "/listings?category=Goats" },
+    { name: "Birds", href: "/listings?category=Birds" },
+    { name: "Fish & Aquarium", href: "/listings?category=Fish" },
   ],
   Services: [
     { name: "Payment Guarantee", href: "/services" },
@@ -38,9 +39,34 @@ const footerLinks = {
 };
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
+  const [subscribing, setSubscribing] = useState(false);
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    if (!email) return;
+    setSubscribing(true);
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (res.ok) {
+        setSubscribed(true);
+        setEmail("");
+        setTimeout(() => setSubscribed(false), 4000);
+      }
+    } catch {
+      // silent
+    } finally {
+      setSubscribing(false);
+    }
+  };
+
   return (
     <footer className="bg-primary-dark text-white relative overflow-hidden">
-      {/* Decorative top border */}
       <div className="h-1 bg-gradient-to-r from-primary via-accent to-primary" />
 
       {/* Newsletter section */}
@@ -55,16 +81,31 @@ export default function Footer() {
                 Get the latest listings and market updates delivered to you.
               </p>
             </div>
-            <div className="flex w-full md:w-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 md:w-72 px-5 py-3 rounded-l-xl bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:border-accent"
-              />
-              <button className="btn btn-accent" style={{ borderRadius: "0 0.75rem 0.75rem 0", padding: "0.75rem 1.5rem" }}>
-                Subscribe
-              </button>
-            </div>
+            {subscribed ? (
+              <div className="flex items-center gap-2 text-green-400">
+                <CheckCircle className="w-5 h-5" />
+                <span className="font-medium">Successfully subscribed!</span>
+              </div>
+            ) : (
+              <form onSubmit={handleSubscribe} className="flex w-full md:w-auto">
+                <input
+                  type="email"
+                  required
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="flex-1 md:w-72 px-5 py-3 rounded-l-xl bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:outline-none focus:border-accent"
+                />
+                <button
+                  type="submit"
+                  disabled={subscribing}
+                  className="btn btn-accent disabled:opacity-50"
+                  style={{ borderRadius: "0 0.75rem 0.75rem 0", padding: "0.75rem 1.5rem" }}
+                >
+                  {subscribing ? "..." : "Subscribe"}
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </div>
@@ -72,7 +113,6 @@ export default function Footer() {
       {/* Main footer content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
-          {/* Brand column */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 group">
               <div className="w-12 h-12 bg-gradient-to-br from-accent to-accent-dark rounded-xl flex items-center justify-center shadow-lg">
@@ -93,7 +133,7 @@ export default function Footer() {
             <p className="mt-5 text-white/70 leading-relaxed max-w-sm">
               Pakistan&apos;s largest online marketplace for buying and selling pets,
               livestock, and birds. Connecting sellers and buyers through
-              technology — all breeds under one roof.
+              technology.
             </p>
             <div className="flex items-center gap-3 mt-6">
               {[Globe, MessageCircle, Camera, Play].map((Icon, i) => (
@@ -102,13 +142,12 @@ export default function Footer() {
                   href="#"
                   className="w-10 h-10 rounded-xl bg-white/10 hover:bg-accent flex items-center justify-center transition-colors"
                 >
-                  <Icon className="w-4.5 h-4.5" />
+                  <Icon className="w-4 h-4" />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Link columns */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
               <h4 className="text-lg font-bold font-[family-name:var(--font-display)] mb-5">
@@ -132,7 +171,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom bar */}
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-white/50">

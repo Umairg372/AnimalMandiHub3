@@ -2,6 +2,7 @@ import { Outfit, DM_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import Providers from "../components/Providers";
 
 const outfit = Outfit({
   variable: "--font-display",
@@ -37,9 +38,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${outfit.variable} ${dmSans.variable}`}>
       <body className="min-h-screen flex flex-col antialiased">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <Providers>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

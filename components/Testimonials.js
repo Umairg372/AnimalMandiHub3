@@ -1,4 +1,4 @@
-import { Star, Quote } from "lucide-react";
+import { Star, Quote, ArrowRight } from "lucide-react";
 
 const testimonials = [
   {
@@ -37,26 +37,32 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-24 bg-white relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/10 to-transparent" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-14">
-          <span className="inline-block bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-medium mb-4">
+        <div className="text-center mb-16">
+          <span className="section-label bg-primary/8 text-primary mb-5 inline-flex">
             Testimonials
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-[family-name:var(--font-display)] text-gray-900">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black font-[family-name:var(--font-display)] text-gray-900 leading-tight">
             Loved by{" "}
-            <span className="text-primary">Thousands</span> of Farmers & Pet
+            <span className="shimmer-text">Thousands</span> of Farmers & Pet
             Owners
           </h2>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {testimonials.map((t) => (
+          {testimonials.map((t, i) => (
             <div
               key={t.name}
-              className="bg-gradient-to-b from-surface to-white border border-gray-100 rounded-2xl p-6 card-hover"
+              className="group premium-card p-7 relative overflow-hidden"
             >
-              <div className="flex items-center gap-1 mb-3">
+              {/* Top accent line */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+              {/* Rating */}
+              <div className="flex items-center gap-0.5 mb-4">
                 {Array.from({ length: t.rating }).map((_, i) => (
                   <Star
                     key={i}
@@ -64,21 +70,28 @@ export default function Testimonials() {
                   />
                 ))}
               </div>
-              <Quote className="w-8 h-8 text-primary/20 mb-3" />
-              <p className="text-gray-600 text-sm leading-relaxed mb-5">
+
+              {/* Quote */}
+              <Quote className="w-8 h-8 text-primary/15 mb-3" />
+              <p className="text-gray-500 text-sm leading-relaxed mb-6">
                 &ldquo;{t.text}&rdquo;
               </p>
-              <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                <span className="text-3xl">{t.avatar}</span>
+
+              {/* Author */}
+              <div className="pt-5 border-t border-gray-100 flex items-center gap-3">
+                <div className="w-11 h-11 bg-gradient-to-br from-primary/10 to-primary/5 rounded-full flex items-center justify-center text-xl">
+                  {t.avatar}
+                </div>
                 <div>
                   <p className="font-bold text-gray-800 text-sm">{t.name}</p>
-                  <p className="text-xs text-gray-500">{t.location}</p>
+                  <p className="text-xs text-gray-400">{t.location}</p>
                 </div>
               </div>
-              <div className="mt-3 bg-primary/5 rounded-lg px-3 py-1.5 inline-block">
-                <span className="text-xs text-primary font-medium">
-                  Bought: {t.animal}
-                </span>
+
+              {/* Animal badge */}
+              <div className="mt-4 inline-flex items-center gap-1.5 bg-primary/5 text-primary text-xs font-semibold px-3 py-1.5 rounded-full">
+                <span>Bought:</span>
+                <span className="font-bold">{t.animal}</span>
               </div>
             </div>
           ))}

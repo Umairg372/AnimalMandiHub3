@@ -16,6 +16,12 @@ import {
   Award,
 } from "lucide-react";
 
+export const metadata = {
+  title: "Services - AnimalMandiHub",
+  description:
+    "Explore AnimalMandiHub services: Payment Guarantee, Home Delivery, Verified Animals, Banner Ads, Star Listings, and 24/7 Support.",
+};
+
 const mainServices = [
   {
     icon: ShieldCheck,

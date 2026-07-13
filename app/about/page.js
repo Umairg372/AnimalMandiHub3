@@ -10,6 +10,12 @@ import {
   PawPrint,
 } from "lucide-react";
 
+export const metadata = {
+  title: "About Us - AnimalMandiHub",
+  description:
+    "Learn about AnimalMandiHub - Pakistan's largest online animal marketplace connecting buyers and sellers across the country.",
+};
+
 const values = [
   {
     icon: Heart,
